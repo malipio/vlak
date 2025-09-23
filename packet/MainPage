@@ -1,0 +1,339 @@
+
+/*! \mainpage
+
+  <h4>
+  Introduction
+  </h4>
+
+  This the main page for the <a href="http://www.doxygen.org">doxygen</a>
+  documentation for the following C++ source code that implements:
+
+  <ul>
+  <li>
+  Wavelet packet algorithm
+  </li>
+  <li>
+  Inverse wavelet packet algorithm
+  </li>
+  <li>
+  Time/Frequency analysis version of the wavelet packet algorithm
+  </li>
+  <li>
+  Floating point (e.g., double) versoins of the Daubechies D4, Haar
+  and "line" wavelet algorithms.
+  </li>
+  <li>
+  Lossless integer wavelet compression algorithms (Haar, TS Transform
+  and "line" wavelets).
+  </li>
+  <li>
+  Integer wavelet packet transform (for lossless compression)
+  </li>
+  <li>
+  Support code to read in Yahoo historical equity data files.
+  </li>
+  </ul>
+
+  The C++ wavelet algorithms published here are related to a
+  set of Java algorithms also published on bearcave.com (see
+  <a
+  href="http://www.bearcave.com/software/java/wavelets/index.html">Wavelets
+  in Java</a>).
+
+  C++ was used to implement the wavelet packet algorithms because
+  C++ provides features like operator overloading and templates
+  which proved useful in creating reusable wavelet packet code.
+
+  The associated Web pages can be found on Bearcave.com at:
+
+  <ul>
+  <li>
+  <a
+  href="http://www.bearcave.com/misl/misl_tech/wavelets/packet/index.html">
+  Wavelet packet transform</a> (www.bearcave.com/misl/misl_tech/wavelets/packet/index.html)
+  </li>
+  <li>
+  <a
+  href="http://www.bearcave.com/misl/misl_tech/wavelets/packfreq/index.html">
+  Modified wavelet packet transform for wavelet time/frequency
+  analysis</a> (www.bearcave.com/misl/misl_tech/wavelets/packfreq/index.html)
+  </li>
+  <li>
+  <a
+  href="http://www.bearcave.com/misl/misl_tech/wavelets/compression/index.html">
+  Lossless Wavelet Compression</a>
+  (www.bearcave.com/misl/misl_tech/wavelets/compression/index.html)
+  </li>
+  </ul>
+
+  The web pages above provide an overview of the wavelet packet
+  transform.  These web pages are meant to be read along with this
+  source code, which is extensively documented.
+
+  The wavelet packet transform has a variety of applications, but one
+  of the most common involves data compression.  A cost function is
+  associated with the wavelet packet transform which will find the
+  best wavelet "basis" for various regions of the data set.  The "best
+  basis" is the wavelet scale that best fits that region.  The
+  determination of "best fit" is made relative to a given wavelet and
+  cost function pair.
+
+  Assuming that the wavelet function can produce an approxiation of
+  the data set, the end result of both the floating point and integer
+  versions of the wavelet packet transform will be the data set mapped
+  into a set of smaller values.  In the case of lossy compression
+  small values can be set to zero, allowing coding compression (e.g.,
+  Huffman or "run length" encoding).
+
+  The integer version of the wavelet packet algorithm (which uses
+  lossless integer to integer wavelet transforms) is useful for
+  lossless compression.  In this case, compression is achieved by the
+  fact that the data set can be mapped to smaller values which
+  can be represented in fewer bits.
+
+  The source code included here also includes a modified
+  wavelet packet algorithm, which is used for time/requency 
+  analysis.
+
+  Given the complexity of wavelets, the web pages above (and the
+  commented source code) fall short in completeness of explanation.
+  The material I've written should be read along with other sources
+  (e.g., books and articles on wavelets).  No single reference will
+  cover all the facets of wavelet mathematics and application.  There
+  is a vast literature on wavelets.  Many articles and books are
+  written by mathematicians, either for other mathematicians or for
+  students of mathematics.  One of the few books I've found that leans
+  less toward theory and more toward application is <i>Ripples in
+  Mathematics</i> by Jensen and la-Cour Harbo, Springer Verlag, 2001.
+  The wavelet packet algorithms implemented here are based on Chapter
+  8 and 9 of this book.
+
+<h4>
+Download
+</h4>
+
+  You can download the source code, in tar format, for the wavelet
+  packet transform
+  <a
+href="http://www.bearcave.com/misl/misl_tech/wavelets/packet/packet.tar">
+here</a>.  The source include Makefiles for both Windows NT (nmake) and
+  UNIX.
+
+  This source code contains both the wavelet packet transform code,
+  the modified wavelet packet transform for wavelet time
+  frequency analysis, lossless wavelet compression code and
+  support to read Yahoo equity time series files.
+
+<h4>
+Trees vs. Tables
+</h4>
+
+<p>
+I have chosen to represent the result of the wavelet packet
+transform as a dynamically allocated tree.  The same data
+can be represented as a table, where each table row corresponds
+to a horizontal slice through the tree (e.g., the level basis).
+I think that the tree representation is more flexible and natural.
+Dynamic data structures are easily implemented in languages like C++ 
+and Java.  This may not be true of MATLAB code.
+</p>
+
+<h4>
+Overview of the Source Code
+</h4>
+
+<p>
+The source code published here can be divided into three catagories:
+</p>
+
+<ol>
+
+<li>
+Floating point wavelet packet and modified wavelet packet code.
+The wavelet packet code uses floating point wavelet algorithms 
+and floating point cost functions (e.g., Shannon and threshold
+cost functions).
+</li>
+
+<li>
+Lossless wavelet packet compression code.  This code is supported
+by integer to integer wavelet transforms.
+</li>
+
+<li>
+Memory management.  The wavelet packet algorithm uses dynamic
+allocation (e.g., <tt>new</tt>).  To make deallocation fast, 
+memory is allocated from a memory pool.  This allows all 
+allocated memory to be deallocated at once.  Pool allocation
+also simplifies the code, since a single deallocation call
+is made when the data structures are no longer needed.
+</li>
+
+<li> 
+Data input support for the lossless wavelet compression
+algorithm.  My motivation for developing the lossless wavelet
+compression code is the application of this algorithm to financial
+time series (e.g., stock close prices).  In this case these are
+historical data sets downloaded from Yahoo.  
+</li>
+
+</ol>
+
+<h4>
+Data structure templates
+</h4>
+
+The wavelet packet algorithm makes use of a several
+general data structure templates:
+
+<ol>
+<li>
+<tt>FIFO_LIST</tt> template.  This template supports a list with
+both a list head and a tail tail pointer.  Items are added to the
+end of the list.  When read from the front, the items will
+be read in first-in, first-out order.  This is used to build a
+"queue" which is used in calculating the inverse wavelet packet
+transform and in constructing the wavelet packet data list that
+results from the wavelet packet transform.
+</li>
+<li>
+<tt>LIST</tt> template.  This supports a simple linked list
+with a single list head pointer.
+</li>
+<li>
+<tt>GrowableArray</tt> template.  This is a generic growable array
+that is by the modified wavelet packet algorithm for time 
+frequency analysis.
+</li>
+</ol>
+
+<h4>
+Wavelet Algorithm Templates
+</h4>
+
+The wavelet algorithms used by the wavelet packet algorithms are based
+on the wavelet lifting scheme, where thare are one or more predict and
+update stages.  The <tt>liftbase</tt> template provides a common base
+class and can be instantiated for the array type and the array element
+type.  The wavelet algorithms themselfs are also templatized to allow
+them to be used with simple data structures and with an indexible
+data structure like packcontainer.
+
+<h4>
+Wavelet packet tree code
+</h4>
+
+The <tt>packtree</tt> and <tt>packfreq</tt> classes (derived from
+the common base class <tt>packtree_base</tt>) build wavelet packet
+trees.  In the case of the packfreq class, the nodes at a given
+level (a so called level basis) of the tree are ordered by frequency,
+(moving from left to right).
+
+<p>
+The wavelet packet algorithm is independent of the actual wavelet
+algorithm that is used while building the tree.  The following
+wavelet algorithms are included:
+</p>
+<ul>
+  <li>
+  <p>
+  Daubechies D4.  The forward and inverse Daubechies D4 algorith is
+  supported for building a standard wavelet packet tree (which can
+  be used in best basis calculation).  Only the forward wavelet
+  step functions are provided for calculating a frequency ordered
+  wavelet packet tree.
+  </p>
+  </li>
+  <li>
+  <p>
+  Haar
+  </p>
+    <ul>
+    <li>
+    <p>
+    Lifting scheme version of the Haar wavelet (see 
+    <a href="/misl/misl_tech/wavelets/lifting/basiclift.html">Basic 
+    Lifting Scheme Wavelets</a>).
+    </p>
+    </li>
+    <li>
+    Haar "classic".  This is the most common version of the Haar
+    wavelet.
+    </li>
+    <li>
+    <p>
+    Haar "classic" for frequency ordering.  This includes the forward
+    and inverse wavelets steps for calculating a frequency ordered
+    wavelet packet tree and for calculating the inverse.
+    </p>
+    </li>
+  </ul>
+  </li>
+  <li>
+  <p>
+  Line wavelet.  This is a lifting scheme wavelet that uses linear
+  interpolation.
+  </p>
+  </li>
+</ul>
+
+The lossless wavelet packet tree code uses integer to integer versions
+of the Haar and line wavelet algorithms.  Another algorithm, sometimes
+called the TS transform, which is popular in image processing is also
+included.
+
+Once the wavelet packet tree is constructed a "best basis" algorithm
+can be applied.  The "best basis" is the minimal representation of
+the data relative to a particular cost function.  This code
+provides cost functions derived from a common base class, 
+<tt>costbase</tt>.
+
+The <tt>packcontainer</tt> class allows a sequence of <i>N</i>
+numbers to be treated as both a contiguous array or as a left
+half and a right half (each consisting of <i>N</i>/2 data elements).
+
+The wavelet packet and modified wavelet packet algorithms were
+developed for floating point (e.g., double) arrays (or containers with
+double elements).  The lossless wavelet packet compression code uses
+integer to integer transforms.  In writing this code I have attempted
+to share as much as possible with the original floating point wavelet
+packet code.  However, in some cases the lossless compression code
+consists of integer specific versions of the original wavelet packet
+code.  For example, <tt>costbase_int</tt> is the integer specific cost
+function base class.  The <tt>packtree_int</tt> and
+<tt>invpacktree_int</tt> classes provide integer specific wavelet
+packet tree support.
+
+In most cases memory is allocated from a memory pool.  This
+approach to dynamic allocation allows memory to be allocated
+without worrying about deallocation.  At a point in the program
+when the memory is no longer needed, it is all deallocated
+at once by deallocating the memory pool.  The only exception to
+pool allocation is the GrowableArray class, which uses the standard
+<b>new</b> and <b>delete</b> operators.
+  
+<h4>
+   Copyright and Use
+</h4>
+
+<p>
+   You may use this source code without limitation and without
+   fee as long as you include:
+</p>
+<blockquote>
+     This software was written and is copyrighted by Ian Kaplan, Bear
+     Products International, www.bearcave.com, 2002.
+</blockquote>
+<p>
+   This software is provided "as is", without any warranty or
+   claim as to its usefulness.  Anyone who uses this source code
+   uses it at their own risk.  Nor is any support provided by
+   Ian Kaplan and Bear Products International.
+<p>
+   Please send any bug fixes or suggested source changes to:
+<pre>
+     iank@bearcave.com
+</pre>
+
+
+*/
