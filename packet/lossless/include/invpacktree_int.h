@@ -1,6 +1,6 @@
 
 #ifndef _INVPACKTREE_INT_H_
-#define _INVPACKTREE_INt_H_
+#define _INVPACKTREE_INT_H_
 
 
 /** \file 
