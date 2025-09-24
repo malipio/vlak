@@ -127,7 +127,7 @@ public:
     be allocated from a memory pool, rather than from
     the system memory pool.
    */
-  void *operator new( unsigned int num_bytes )
+  void *operator new( size_t num_bytes )
   {
     block_pool mem_pool;
 

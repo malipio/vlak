@@ -46,6 +46,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdint>
 
 #include "blockpool.h"
 
@@ -114,7 +115,7 @@ block_pool::block_chain *block_pool::new_block( unsigned int block_size )
     new_link = (block_chain *)MemAlloc( alloc_amt );
 
     // The new memory block starts after the block_chain structure
-    Chain_block(new_link) = (void *)(((unsigned int)new_link) + sizeof(block_chain));
+    Chain_block(new_link) = (void *)(((uintptr_t)new_link) + sizeof(block_chain));
 
     assert( alloc_amt >= block_size );
 
@@ -191,7 +192,7 @@ void *block_pool::pool_alloc( unsigned int num_bytes )
   }
 
   if (amt_free >= num_bytes) {
-    addr = (void *)((unsigned int)Chain_block(current_block) + Chain_bytes_used(current_block));
+    addr = (void *)((uintptr_t)Chain_block(current_block) + Chain_bytes_used(current_block));
     Chain_bytes_used(current_block) += num_bytes;
   }
   else {

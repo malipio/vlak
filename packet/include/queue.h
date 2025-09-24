@@ -98,7 +98,7 @@ public:
   queueElem<T> *queueStart()
   {
     typename queue<T>::handle h = this->first();
-    queueElem<T> *elem = get_item( h );
+    queueElem<T> *elem = this->get_item( h );
     return elem;
   } // queueStart
 
@@ -112,7 +112,7 @@ public:
   {
     typename queue<T>::handle h = this->first();
     if (h != 0) {
-      queueElem<T> *elem = get_item( h );
+      queueElem<T> *elem = this->get_item( h );
       this->remove();
       // no delete elem;
     }

@@ -1,0 +1,6 @@
+*.o
+testincludes
+deps
+*.vlak
+vlak
+wavdiff

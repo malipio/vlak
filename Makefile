@@ -4,7 +4,7 @@ all: tests wavdiff vlak
 INCLUDES=-Ipacket/include -Ipacket/lossless/include -Ipacket/lossless/srcvlak
 
 #CPPFLAGS=-g -Wall -I. $(INCLUDES)
-CPPFLAGS=-O2 -march=pentium4 -Wall -I. $(INCLUDES)
+CPPFLAGS=-O2 -std=gnu++03 -Wall -I. $(INCLUDES)
 #LDFLAGS=
 CPP=g++
 

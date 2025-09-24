@@ -97,7 +97,7 @@ public:
     Overload the standard <i>new</i> operator and allocate
     memory from the memory pool.
    */
-  void *operator new( unsigned int num_bytes )
+  void *operator new(size_t num_bytes )
   {
     block_pool mem_pool;
 
