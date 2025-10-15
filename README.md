@@ -2,7 +2,7 @@
 
 ## 🕰️ History & Motivation
 
-This project is a digital relic from the early days of modern computing, originally developed by a group of [students](#Authors) during their Computer Science studies at the **Warsaw University of Technology** in the **2005/2006 academic year** (05Z semester).
+This project is a digital relic from the early days of modern computing, originally developed by a group of [students](#%E2%80%8D-authors) during their Computer Science studies at the **Warsaw University of Technology** in the **2005/2006 academic year** (05Z semester).
 
 Motivation for revisiting this project is two-fold:
 
@@ -177,7 +177,7 @@ The **LPC** and **Wavelet** predictors were the most promising, and Mid-Side tra
 - Wojciech Wasiak
 
 ## 📝 License
-[License information should be added here]
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
 
 ## 📚 Documentation
 Additional documentation can be found in the `docs/` directory:
