@@ -4,3 +4,9 @@ deps
 *.vlak
 vlak
 wavdiff
+novcs/
+build/
+tags
+.vscode
+testlpc
+testmain
