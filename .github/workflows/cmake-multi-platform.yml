@@ -21,12 +21,12 @@ jobs:
         build_type: [Release]
         include:
           - os: windows-latest
-            c_compiler: mingw32
-            cpp_compiler: mingw32-g++
+            c_compiler: cl
+            cpp_compiler: cl
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
-          - os: ubuntu-latest-arm64
+          - os: ubuntu-24.04-arm
             c_compiler: gcc
             cpp_compiler: g++
           - os: macos-latest
