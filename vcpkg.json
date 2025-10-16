@@ -6,5 +6,6 @@
             "name": "getopt-win32",
             "platform": "windows"
         }
-    ]
+    ],
+    "builtin-baseline": "4334d8b4c8916018600212ab4dd4bbdc343065d1"
 }
