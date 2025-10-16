@@ -411,7 +411,7 @@ void VLAKFrontend::Run()
 	}
 }
 
-int main(int argc, char* argv[0])
+int main(int argc, char* argv[])
 {
 	VLAKFrontend frontend(argc,argv);
 	try 
