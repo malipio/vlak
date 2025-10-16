@@ -191,7 +191,7 @@ int testLPCEncoder()
 	return 0;
 }
 
-int main(int argc, char* argv[0])
+int main(int argc, char* argv[])
 {
 	int retval = 0;	
 	if(argc == 1) // pusta cmd
