@@ -10,3 +10,4 @@ tags
 .vscode
 testlpc
 testmain
+vcpkg_installed/

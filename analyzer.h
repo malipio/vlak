@@ -9,7 +9,7 @@
 #include <vector>
 #include <string.h>
 #include <assert.h>
-#include <libgen.h> // dirname basename
+#include <cwalk.h>
 
 #include "streamops.h" // przedefiniowane operatory<<
 #include "idecoder.h"
@@ -18,25 +18,6 @@
 #include "cfirpredictor.h"
 #include "clpcpredictor.h"
 #include "cwaveletpredictor.h"
-
-/*
-#include "cbitstream.h"
-#include "cblock.h"
-#include "clpcriceframe.h"
-#include "csample.h"
-#include "cvlakfile.h"
-#include "cvlakheader.h"
-#include "cwavfile.h"
-#include "iblocksprovider.h"
-#include "ichannelmanipulator.h"
-#include "icompressedframe.h"
-#include "ientropycompressor.h"
-#include "iframe.h"
-#include "iinfo.h"
-#include "ipredictor.h"
-#include "ricecoder/cricecoder.h"
-#include "cwaveletcompressedframe.h"
-*/
 
 using namespace std;
 
@@ -125,7 +106,9 @@ class VLAKAnalyzer {
 		{
 			this->inputFileName = inputFileName;
 			char *tmp = strdup(inputFileName.c_str());
-			namePrefix = dirname(tmp);
+			size_t dirnameLength;
+			cwk_path_get_dirname(tmp, &dirnameLength);
+			namePrefix.assign(tmp, dirnameLength);
 			free(tmp);
 			namePrefix += "/";
 //			namePrefix = inputFileName+"."; // TODO

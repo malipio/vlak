@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
     # find_package(getopt-win32 CONFIG REQUIRED)
 # endif()
 
-find_package(fmt CONFIG REQUIRED)
+find_package(Cwalk CONFIG REQUIRED)
 
 include_directories(
     .
@@ -92,5 +92,5 @@ add_executable(wavdiff ${WAVDIFFSRC})
     # target_link_libraries(vlak PRIVATE getopt::getopt)
 # endif()
 
-target_link_libraries(vlak PRIVATE fmt::fmt)
+target_link_libraries(vlak PRIVATE cwalk)
 add_custom_target(tests DEPENDS testincludes testmain testlpc)
