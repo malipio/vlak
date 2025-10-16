@@ -1,0 +1,10 @@
+{
+    "name": "vlak",
+    "version": "1.4",
+    "dependencies": [
+        {
+            "name": "getopt-win32",
+            "platform": "windows"
+        }
+    ]
+}
