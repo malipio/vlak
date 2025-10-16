@@ -17,7 +17,6 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ubuntu-latest, ubuntu-latest-arm64, windows-latest, macos-latest]
         build_type: [Release]
         include:
           - os: windows-latest
