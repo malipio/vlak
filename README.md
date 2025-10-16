@@ -113,9 +113,6 @@ To decompress a VLAK file:
 This will create `input.wav` as the output file.
 
 ## 🛠️ Tools
-- `vlak` – Main compression/decompression tool
-- `wavdiff` – Utility to compare WAV files
-
 The project includes several tools:
 
 - `vlak` - Main compression/decompression tool
