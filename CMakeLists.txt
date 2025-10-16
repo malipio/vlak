@@ -12,9 +12,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
 
-# if(WIN32)
-    # find_package(getopt-win32 CONFIG REQUIRED)
-# endif()
+if(WIN32)
+    find_package(unofficial-getopt-win32 REQUIRED)
+endif()
 
 find_package(Cwalk CONFIG REQUIRED)
 
@@ -88,9 +88,9 @@ add_executable(testmain ${TESTMAINSRC})
 add_executable(wavdiff ${WAVDIFFSRC})
 
 
-# if(WIN32)
-    # target_link_libraries(vlak PRIVATE getopt::getopt)
-# endif()
+if(WIN32)
+    target_link_libraries(vlak PRIVATE unofficial::getopt-win32::getopt)
+endif()
 
 target_link_libraries(vlak PRIVATE cwalk)
 add_custom_target(tests DEPENDS testincludes testmain testlpc)
